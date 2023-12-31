@@ -1,7 +1,5 @@
 # Be Fast BE (Backend)
 
-Este repositorio contiene el backend para la aplicación Be Fast, desarrollado utilizando Express.js y MongoDB. La aplicación Be Fast está diseñada para facilitar la gestión y seguimiento de entregas, conectando a clientes con repartidores de manera eficiente y efectiva.
-
 ## Tecnologías Utilizadas
 
 - **Express.js**: Un framework de servidor web para Node.js que facilita la creación de aplicaciones web y APIs de manera rápida y sencilla.
