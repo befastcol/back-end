@@ -11,8 +11,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true
-    }
+    },
+   
 });
+
 
 const User = mongoose.model('User', userSchema);
 
