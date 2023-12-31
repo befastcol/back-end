@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const Courier = require('../models/Courier'); 
-const User = require('../models/User'); 
+import express, { Request, Response } from 'express';
+import  Courier  from "../models/courier";
+import { User } from '../models/user';
 
-router.post('/register', async (req, res) => {
+const router = express.Router();
+
+router.post('/register', async (req: Request, res: Response) => {
     try {
         const { userId, INE_front, INE_back, driverLicense } = req.body;
 
@@ -31,4 +32,4 @@ router.post('/register', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
