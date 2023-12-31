@@ -8,7 +8,7 @@ Este repositorio contiene el backend para la aplicación Be Fast, desarrollado u
 - **MongoDB**: Una base de datos NoSQL que ofrece flexibilidad y una escalabilidad eficiente, ideal para manejar las operaciones de datos de la aplicación.
 
 
-3. **Configurar el Archivo `.env`**:
+**Configurar el Archivo `.env`**:
 - Crea un archivo `.env` en la raíz del proyecto.
 - Agrega la cadena de conexión a MongoDB. Por ejemplo:
   ```
