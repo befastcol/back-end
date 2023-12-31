@@ -1,8 +1,9 @@
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
 
-const userRoutes = require('./routes/userRoutes');
-const courierRoutes = require('./routes/courierRoutes');
+import userRoutes from './src/routes/userRoutes';
+import courierRoutes from './src/routes/courierRoutes';
+import serviceRoutes from './src/routes/serviceRoutes'; 
 
 require('dotenv').config();
 
@@ -15,6 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use('/api/users', userRoutes);
 app.use('/api/couriers', courierRoutes);
+app.use('/api/services', serviceRoutes); 
 
 const port = process.env.PORT || 3000;
 
