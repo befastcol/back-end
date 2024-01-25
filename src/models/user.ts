@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { UserInterface } from '../interfaces/UserInterface';
+import { UserInterface } from '../interfaces/user';
 
 const userSchema = new Schema<UserInterface>({
     name: {
@@ -13,9 +13,18 @@ const userSchema = new Schema<UserInterface>({
         trim: true,
         unique: true
     },
-    isAdmin: {
-        type: Boolean,
-        default: false
+    role: {
+        type: String,
+        enum: ['user', 'courier', 'admin'],
+        default: 'user'
+    },
+    INE: {
+        front: { type: String, default: null },
+        back: { type: String, default: null }
+    },
+    driverLicense: {
+        front: { type: String, default: null },
+        back: { type: String, default: null }
     }
 });
 

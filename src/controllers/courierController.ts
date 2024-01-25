@@ -1,31 +1,37 @@
-import Courier from "../models/courier";
-import { User } from '../models/user';
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-export const registerCourier = async (req: Request, res: Response) => {
-    try {
-        const { userId, INE_front, INE_back, driverLicense } = req.body;
+import { User } from "../models/user";
 
-        if (!userId || !INE_front || !INE_back || !driverLicense) {
-            return res.status(400).json({ message: "All fields are required" });
-        }
+export const registerCourier = async (
+  { params: { userId }, body }: Request,
+  res: Response
+) => {
+  try {
+    const { INE, driverLicense } = body;
 
-        const existingCourier = await Courier.findOne({ userId });
-        if (existingCourier) {
-            return res.status(409).json({ message: "User already registered as a courier" });
-        }
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        role: "courier",
+        INE: {
+          front: INE.front,
+          back: INE.back,
+        },
+        driverLicense: {
+          front: driverLicense.front,
+        },
+      },
+      { new: true }
+    );
 
-        const userExists = await User.findById(userId);
-        if (!userExists) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        const newCourier = new Courier({ userId, INE_front, INE_back, driverLicense });
-        await newCourier.save();
-
-        res.status(201).json(newCourier);
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({ message: "Internal server error" });
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    res.status(200).json(updatedUser);
+  } catch (error: any) {
+    res.status(500).json({
+      message: error.message || "Internal server error",
+    });
+  }
 };
