@@ -3,13 +3,16 @@ import {
   getUserDeliveries,
   getCourierDeliveries,
   createDelivery,
-} from "../controllers/deliveryController";
+  deleteDelivery,
+} from "../controllers/deliveries";
 
 const router = express.Router();
 
+router.post("/create/:userId", createDelivery);
+router.delete("delete/:deliveryId", deleteDelivery);
+
+// User deliveries history
 router.get("/:userId", getUserDeliveries);
 router.get("/:courierId", getCourierDeliveries);
-
-router.post("/create/:userId", createDelivery);
 
 export default router;

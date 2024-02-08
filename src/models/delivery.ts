@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { DeliveryInterface } from "../interfaces/delivery";
-import { pointSchema } from "./utils/point";
+import { pointSchema } from "./custom";
 
 const deliverySchema = new Schema<DeliveryInterface>({
   requestedDate: {

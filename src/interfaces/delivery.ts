@@ -1,15 +1,14 @@
 import { Document, Types } from "mongoose";
-
-import { PointSchema } from "./utils/point";
+import { PointInterface } from "./custom";
 
 export interface DeliveryInterface extends Document {
+  status: "pending" | "in_progress" | "completed";
   requestedDate: Date;
   deliveredDate: Date;
-  origin: PointSchema;
-  destination: PointSchema;
-  price: number;
+  origin: PointInterface;
+  destination: PointInterface;
+  courierLocation: PointInterface;
   customer: Types.ObjectId;
   courier: Types.ObjectId;
-  status: "pending" | "in_progress" | "completed";
-  courierLocation: number[];
+  price: number;
 }
