@@ -1,9 +1,5 @@
 import { Schema } from "mongoose";
-import {
-  DocumentInterface,
-  LatLng,
-  PointInterface,
-} from "../../interfaces/custom";
+import { DocumentInterface, PointInterface } from "../../interfaces/custom";
 
 export const pointSchema = new Schema<PointInterface>({
   coordinates: {
@@ -16,17 +12,6 @@ export const pointSchema = new Schema<PointInterface>({
   },
   subtitle: {
     type: String,
-    required: true,
-  },
-});
-
-export const latLngSchema = new Schema<LatLng>({
-  lat: {
-    type: Number,
-    required: true,
-  },
-  lng: {
-    type: Number,
     required: true,
   },
 });

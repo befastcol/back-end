@@ -8,8 +8,3 @@ export interface PointInterface {
   title: string;
   subtitle: string;
 }
-
-export interface LatLng {
-  lat: number;
-  lng: number;
-}
