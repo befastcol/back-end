@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import http from "http";
 import { Server as SocketIOServer } from "socket.io";
 
-import deliveryRoutes from "./src/routes/deliveries";
-import userRoutes from "./src/routes/users";
+import deliveries from "./src/routes/deliveries";
+import users from "./src/routes/users";
 
 dotenv.config();
 
@@ -19,8 +19,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB:", err));
 
-app.use("/api/deliveries", deliveryRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/deliveries", deliveries);
+app.use("/api/users", users);
 
 const server = http.createServer(app);
 const io = new SocketIOServer(server);
