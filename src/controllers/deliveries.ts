@@ -12,8 +12,7 @@ export const getDeliveryPrice = async (req: Request, res: Response) => {
     const price = calculatePrice(Number(distance), Number(duration));
     res.status(200).json(price);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internaasdadsddasdad " + error });
   }
 };
 

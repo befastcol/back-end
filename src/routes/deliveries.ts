@@ -11,8 +11,9 @@ import {
 
 const router = express.Router();
 
-router.get("/:deliveryId", getDelivery);
+// Do NOT change orders
 router.get("/price", getDeliveryPrice);
+router.get("/:deliveryId", getDelivery);
 router.post("/create/:userId", createDelivery);
 router.delete("/delete/:deliveryId", deleteDelivery);
 router.put("/update/:deliveryId", updateDelivery);
