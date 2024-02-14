@@ -38,7 +38,7 @@ const deliverySchema = new Schema<DeliveryInterface>({
     enum: ["pending", "in_progress", "completed"],
     default: "pending",
   },
-  courierLocation: {
+  currentLocation: {
     type: [Number],
     required: false,
   },

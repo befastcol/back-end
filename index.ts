@@ -6,7 +6,6 @@ import { Server as SocketIOServer } from "socket.io";
 
 import deliveryRoutes from "./src/routes/deliveries";
 import userRoutes from "./src/routes/users";
-import mapsRoutes from "./src/routes/maps";
 
 dotenv.config();
 
@@ -22,7 +21,6 @@ mongoose
 
 app.use("/api/deliveries", deliveryRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/maps", mapsRoutes);
 
 const server = http.createServer(app);
 const io = new SocketIOServer(server);

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { UserInterface } from "../interfaces/user";
-import { documentSchema } from "./custom";
+import { documentSchema, pointSchema } from "./custom";
 
 const userSchema = new Schema<UserInterface>({
   name: {
@@ -21,6 +21,9 @@ const userSchema = new Schema<UserInterface>({
   },
   INE: documentSchema,
   driverLicense: documentSchema,
+  location: {
+    type: pointSchema,
+  },
 });
 
 export const User = mongoose.model<UserInterface>("User", userSchema);
