@@ -28,10 +28,8 @@ const io = new SocketIOServer(server);
 io.on("connection", (socket) => {
   console.log("Un cliente se ha conectado");
 
-  // Aquí puedes manejar eventos específicos
-  // Por ejemplo, escuchar cambios en una entrega y notificar al cliente
   socket.on("joinDeliveryRoom", (deliveryId) => {
-    socket.join(deliveryId); // Unirse a una sala específica basada en el ID de la entrega
+    socket.join(deliveryId);
   });
 
   socket.on("disconnect", () => {
