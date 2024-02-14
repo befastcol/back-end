@@ -11,12 +11,12 @@ import {
 
 const router = express.Router();
 
-// Do NOT change orders
-router.get("/price", getDeliveryPrice);
-router.get("/:deliveryId", getDelivery);
+router.get("/get/:deliveryId", getDelivery);
 router.post("/create/:userId", createDelivery);
 router.delete("/delete/:deliveryId", deleteDelivery);
 router.put("/update/:deliveryId", updateDelivery);
+
+router.get("/price", getDeliveryPrice);
 
 // User deliveries history
 router.get("/users/:userId", getUserDeliveries);
