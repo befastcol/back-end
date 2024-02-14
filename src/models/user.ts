@@ -21,9 +21,8 @@ const userSchema = new Schema<UserInterface>({
   },
   INE: documentSchema,
   driverLicense: documentSchema,
-  location: {
-    type: pointSchema,
-  },
+  currentLocation: pointSchema,
+  originLocation: pointSchema,
 });
 
 export const User = mongoose.model<UserInterface>("User", userSchema);

@@ -5,7 +5,8 @@ export interface UserInterface extends Document {
   role: "user" | "courier" | "admin";
   name: string;
   phone: string;
-  location?: PointInterface;
+  originLocation?: PointInterface;
+  currentLocation?: PointInterface;
   INE?: DocumentInterface;
   driverLicense?: DocumentInterface;
 }

@@ -1,6 +1,21 @@
 import { Request, Response } from "express";
 import { Delivery } from "../models/delivery";
-import { watchDeliveryChanges } from "./helpers/socketio";
+import { calculatePrice } from "./helpers/price";
+
+export const getDeliveryPrice = async (req: Request, res: Response) => {
+  try {
+    const { distance, duration } = req.query;
+
+    if (!distance && !duration)
+      return res.status(400).json({ message: "Invalid query parameters" });
+
+    const price = calculatePrice(Number(distance), Number(duration));
+    res.status(200).json(price);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 export const createDelivery = async (req: Request, res: Response) => {
   try {
@@ -12,9 +27,6 @@ export const createDelivery = async (req: Request, res: Response) => {
     });
 
     const savedDelivery = await newDelivery.save();
-
-    watchDeliveryChanges(savedDelivery._id);
-
     res.status(201).json(savedDelivery);
   } catch (_) {
     res.status(500).json({ message: "Internal server error" });

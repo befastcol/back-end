@@ -4,7 +4,8 @@ export interface DocumentInterface {
 }
 
 export interface PointInterface {
+  type: string;
   coordinates: [number, number];
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
 }
