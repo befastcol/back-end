@@ -10,7 +10,7 @@
 
 - **Firebase Cloud Messaging (FCM)**: Utilizado para enviar notificaciones push al usuario.
 
-**Para poder correr el servidor necesitas configurar el Archivo `.env`**:
+## Instrucciones para hacer funcionar este repositorio
 
 1. Crea un archivo `.env` en la raíz del proyecto.
 
