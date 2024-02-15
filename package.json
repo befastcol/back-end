@@ -4,7 +4,7 @@
   "description": "Be Fast Backend made with Express Js and MongoDB",
   "main": "index.ts",
   "scripts": {
-    "build": "rm -rf build && tsc",
+    "build": "tsc",
     "start": "node build/index.js",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
   },
