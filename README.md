@@ -13,6 +13,11 @@
 **Para poder correr el servidor necesitas configurar el Archivo `.env`**:
 
 - Crea un archivo `.env` en la raíz del proyecto.
+
+  ```
+  touch .env
+  ```
+
 - Agrega la cadena de conexión a MongoDB. (La puedes encontrar en mongoDB Atlas)
 
   ```
