@@ -17,7 +17,7 @@
   ```
   MONGO_URI=tu_cadena_de_conexion_a_mongodb
   ```
-- La tu_cadena_de_conexion_a_mongodb la puedes encontrar en la cuenta de MongoDB está asociada al correo `befastcol@gmail.com`.
+- La puedes encontrar en la cuenta de MongoDB está asociada al correo `befastcol@gmail.com`.
 
 - Agrega el puerto 3000
 
