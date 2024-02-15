@@ -1,24 +1,24 @@
-## Instrucciones para hacer funcionar este repositorio
+## Instructions to work on this repo
 
-1. Crea un archivo `.env` en la raíz del proyecto.
+1. Create an `.env` file on the root of the project.
 
 ```
 touch .env
 ```
 
-2. Agrega la cadena de conexión a MongoDB. (La puedes encontrar en mongoDB Atlas)
+2. Add the MongoDB URI connection (You can find it on MongoDB Atlas)
 
 ```
 MONGO_URI=tu_cadena_de_conexion_a_mongodb
 ```
 
-3. Agrega el puerto 3000
+3. Add port 3000
 
 ```
 PORT=3000
 ```
 
-4. Agrega la la API de google, que la puedes encontrar en Google Cloud Platform
+4. Add Google API, (you can find it on Google Cloud Platform)
 
 ```
 GOOGLE_API_KEY=AIzaSy*************************rxGGOdIA
