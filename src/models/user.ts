@@ -21,7 +21,10 @@ const userSchema = new Schema<UserInterface>({
   },
   INE: documentSchema,
   driverLicense: documentSchema,
-  currentLocation: pointSchema,
+  currentLocation: {
+    type: { type: String, default: "Point" },
+    coordinates: { type: [Number], default: [0, 0] },
+  },
   originLocation: pointSchema,
 });
 

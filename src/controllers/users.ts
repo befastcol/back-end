@@ -40,6 +40,7 @@ export const updateUserById = async (req: Request, res: Response) => {
 
     res.status(200).json(user);
   } catch (error: any) {
+    console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -64,7 +65,7 @@ export const getAllUsers = async (_: Request, res: Response) => {
   }
 };
 
-export const updateUserAsCourier = async (
+export const convertUserIntoCourier = async (
   { params: { userId }, body }: Request,
   res: Response
 ) => {
@@ -116,5 +117,25 @@ export const getPendingCouriers = async (_: Request, res: Response) => {
     res.status(200).json(pendingCouriers);
   } catch (error: any) {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const updateCourierLocation = async (data: {
+  courierId: string;
+  latitude: number;
+  longitude: number;
+}) => {
+  try {
+    const courier = await User.findById(data.courierId);
+    if (!courier) return;
+
+    courier.currentLocation = {
+      type: "Point",
+      coordinates: [data.longitude, data.latitude],
+    };
+    await courier.save();
+    console.log(`Location updated for courier ${data.courierId}`);
+  } catch (error: any) {
+    console.error("Error updating courier location:", error.message);
   }
 };

@@ -6,6 +6,7 @@ import { Server as SocketIOServer } from "socket.io";
 
 import deliveryRoutes from "./src/routes/deliveries";
 import userRoutes from "./src/routes/users";
+import { updateCourierLocation } from "./src/controllers/users";
 
 dotenv.config();
 
@@ -26,14 +27,15 @@ const server = http.createServer(app);
 const io = new SocketIOServer(server);
 
 io.on("connection", (socket) => {
-  console.log("Un cliente se ha conectado");
+  console.log("Courier connected, id: ", socket.id);
 
-  socket.on("joinDeliveryRoom", (deliveryId) => {
-    socket.join(deliveryId);
+  socket.on("updateLocation", (data) => {
+    console.log("New location received:", data);
+    updateCourierLocation(data);
   });
 
   socket.on("disconnect", () => {
-    console.log("Un cliente se ha desconectado");
+    console.log("Courier disconnected");
   });
 });
 

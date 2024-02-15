@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Delivery } from "../models/delivery";
 import { calculatePrice } from "./helpers/price";
+import { io } from "../..";
 
 export const getDeliveryPrice = async (req: Request, res: Response) => {
   try {
@@ -26,6 +27,8 @@ export const createDelivery = async (req: Request, res: Response) => {
     });
 
     const savedDelivery = await newDelivery.save();
+    io.emit("newDelivery", { courier: req.body.courier });
+
     res.status(201).json(savedDelivery);
   } catch (_) {
     res.status(500).json({ message: "Internal server error" });
