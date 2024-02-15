@@ -12,26 +12,26 @@
 
 **Para poder correr el servidor necesitas configurar el Archivo `.env`**:
 
-- Crea un archivo `.env` en la raíz del proyecto.
+1. Crea un archivo `.env` en la raíz del proyecto.
 
-  ```
-  touch .env
-  ```
+```
+touch .env
+```
 
-- Agrega la cadena de conexión a MongoDB. (La puedes encontrar en mongoDB Atlas)
+2. Agrega la cadena de conexión a MongoDB. (La puedes encontrar en mongoDB Atlas)
 
-  ```
-  MONGO_URI=tu_cadena_de_conexion_a_mongodb
-  ```
+```
+MONGO_URI=tu_cadena_de_conexion_a_mongodb
+```
 
-- Agrega el puerto 3000
+3. Agrega el puerto 3000
 
-  ```
-  PORT=3000
-  ```
+```
+PORT=3000
+```
 
-- Agrega la la API de google, que la puedes encontrar en Google Cloud Platform
+4. Agrega la la API de google, que la puedes encontrar en Google Cloud Platform
 
-  ```
-  GOOGLE_API_KEY=AIzaSy*************************rxGGOdIA
-  ```
+```
+GOOGLE_API_KEY=AIzaSy*************************rxGGOdIA
+```
