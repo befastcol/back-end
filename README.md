@@ -13,11 +13,11 @@
 **Para poder correr el servidor necesitas configurar el Archivo `.env`**:
 
 - Crea un archivo `.env` en la raíz del proyecto.
-- Agrega la cadena de conexión a MongoDB. Por ejemplo:
+- Agrega la cadena de conexión a MongoDB. (La puedes encontrar en mongoDB Atlas)
+
   ```
   MONGO_URI=tu_cadena_de_conexion_a_mongodb
   ```
-- La puedes encontrar en la cuenta de MongoDB está asociada al correo `befastcol@gmail.com`.
 
 - Agrega el puerto 3000
 
