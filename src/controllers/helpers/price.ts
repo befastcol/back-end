@@ -1,11 +1,10 @@
 export const calculatePrice = (distance: number, duration: number) => {
-  const distanceFactor = 56000;
-  const timeFactor = 120;
-  const basePrice = 15;
+  const basePrice = 20;
+  const pricePerMeter = 0.002;
+  const pricePerSecond = 0.001;
 
-  const price = Math.round(
-    distance / distanceFactor + duration / timeFactor + basePrice
-  );
+  let price = basePrice + distance * pricePerMeter + duration * pricePerSecond;
 
+  price = Math.round(price / 5) * 5;
   return price;
 };
