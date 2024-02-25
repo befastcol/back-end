@@ -38,10 +38,6 @@ const deliverySchema = new Schema<DeliveryInterface>({
     enum: ["pending", "in_progress", "completed"],
     default: "pending",
   },
-  currentLocation: {
-    type: [Number],
-    required: false,
-  },
 });
 
 export const Delivery = mongoose.model<DeliveryInterface>(

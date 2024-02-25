@@ -5,20 +5,21 @@ import { User } from "../models/user";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { name, phone }: UserInterface = req.body;
+    const { phone }: UserInterface = req.body;
     if (!phone) return res.status(400).json({ message: "Phone is required" });
 
     const existingUser = await User.findOne({ phone });
     if (existingUser) return res.status(409).json({ _id: existingUser._id });
 
-    const newUser = await new User({ name, phone }).save();
+    const newUser = await new User({ phone }).save();
     res.status(201).json(newUser);
-  } catch (_) {
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUser = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.userId);
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -29,7 +30,7 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
-export const updateUserById = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response) => {
   try {
     const body: UserInterface = req.body;
     const { userId } = req.params;
@@ -40,7 +41,6 @@ export const updateUserById = async (req: Request, res: Response) => {
 
     res.status(200).json(user);
   } catch (error: any) {
-    console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -108,15 +108,32 @@ export const getAcceptedCouriers = async (_: Request, res: Response) => {
 
 export const getPendingCouriers = async (_: Request, res: Response) => {
   try {
-    const pendingCouriers = await User.find({
+    const couriers = await User.find({
       role: "user",
-      "INE.front": { $ne: null },
-      "INE.back": { $ne: null },
-      "driverLicense.front": { $ne: null },
+      documents: {
+        "INE.front": { $nin: [null, ""] },
+        "INE.back": { $nin: [null, ""] },
+        "driverLicense.front": { $nin: [null, ""] },
+      },
     });
-    res.status(200).json(pendingCouriers);
+    res.status(200).json(couriers);
   } catch (error: any) {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getActiveCouriers = async (_: Request, res: Response) => {
+  try {
+    const activeCouriers = await User.find({
+      role: "courier",
+      status: "active",
+    });
+
+    res.status(200).json(activeCouriers);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
 

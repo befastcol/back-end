@@ -7,7 +7,6 @@ export interface DeliveryInterface extends Document {
   deliveredDate: Date;
   origin: PointInterface;
   destination: PointInterface;
-  currentLocation: [number, number];
   customer: Types.ObjectId;
   courier: Types.ObjectId;
   price: number;
