@@ -59,7 +59,7 @@ export const getDelivery = async (req: Request, res: Response) => {
 export const updateDelivery = async (req: Request, res: Response) => {
   try {
     const deliveryId = req.params.deliveryId;
-    const { status, courier, currentLocation } = req.body;
+    const { status, courier } = req.body;
 
     if (!status && !courier) {
       return res
@@ -69,7 +69,7 @@ export const updateDelivery = async (req: Request, res: Response) => {
 
     const updatedDelivery = await Delivery.findByIdAndUpdate(
       deliveryId,
-      { $set: { status, courier, currentLocation } },
+      { $set: { status, courier } },
       { new: true }
     );
 

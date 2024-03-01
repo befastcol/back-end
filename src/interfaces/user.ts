@@ -2,7 +2,6 @@ import { Document } from "mongoose";
 import { DocumentInterface, PointInterface } from "./custom";
 
 export interface UserInterface extends Document {
-  role: "user" | "courier" | "admin";
   name: string;
   phone: string;
   isDisabled: boolean;
@@ -12,6 +11,7 @@ export interface UserInterface extends Document {
     INE: DocumentInterface;
     driverLicense: DocumentInterface;
   };
+  role: "user" | "courier" | "admin";
   status: "active" | "inactive" | "busy";
   vehicle: "car" | "motorcycle" | "none";
 }
