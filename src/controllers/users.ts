@@ -110,11 +110,10 @@ export const getPendingCouriers = async (_: Request, res: Response) => {
   try {
     const couriers = await User.find({
       role: "user",
-      documents: {
-        "INE.front": { $nin: [null, ""] },
-        "INE.back": { $nin: [null, ""] },
-        "driverLicense.front": { $nin: [null, ""] },
-      },
+      // Asegúrate de que cada campo no sea igual a una cadena vacía
+      "INE.front": { $ne: "" },
+      "INE.back": { $ne: "" },
+      "driverLicense.front": { $ne: "" },
     });
     res.status(200).json(couriers);
   } catch (error: any) {

@@ -44,11 +44,6 @@ const userSchema = new Schema<UserInterface>({
     required: true,
     default: false,
   },
-  hasPayed: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
   status: {
     type: String,
     required: true,
@@ -58,8 +53,8 @@ const userSchema = new Schema<UserInterface>({
   vehicle: {
     type: String,
     required: true,
-    enum: ["car", "motorcycle"],
-    default: "motorcycle",
+    enum: ["car", "motorcycle", "none"],
+    default: "none",
   },
 });
 

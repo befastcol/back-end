@@ -6,7 +6,6 @@ export interface UserInterface extends Document {
   name: string;
   phone: string;
   isDisabled: boolean;
-  hasPayed: boolean;
   originLocation?: PointInterface;
   currentLocation?: PointInterface;
   documents: {
@@ -14,5 +13,5 @@ export interface UserInterface extends Document {
     driverLicense: DocumentInterface;
   };
   status: "active" | "inactive" | "busy";
-  vehicle: "car" | "motorcycle";
+  vehicle: "car" | "motorcycle" | "none";
 }
