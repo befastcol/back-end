@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Delivery } from "../models/delivery";
 import { calculatePrice } from "./helpers/price";
 import { io } from "../..";
+import { getClosestCouriers } from "./helpers/closestCouriers";
 
 export const getDeliveryPrice = async (req: Request, res: Response) => {
   try {
@@ -18,16 +19,21 @@ export const getDeliveryPrice = async (req: Request, res: Response) => {
 };
 
 export const createDelivery = async (req: Request, res: Response) => {
+  const closestCouriers = await getClosestCouriers(req.body.origin);
+
+  //TODO: Crear un algoritmo que despues de cada cierto tiempo si el courier0 no aceptó, lo elimine del array y pasemos al siguiente
+
   try {
     const newDelivery = new Delivery({
       origin: req.body.origin,
       destination: req.body.destination,
       price: req.body.price,
       customer: req.params.userId,
+      courier: closestCouriers[0].id,
     });
 
     const savedDelivery = await newDelivery.save();
-    io.emit("newDelivery", { courier: req.body.courier });
+    io.emit(closestCouriers[0].id, { courier: req.body.courier });
 
     res.status(201).json(savedDelivery);
   } catch (_) {
