@@ -53,8 +53,8 @@ const userSchema = new Schema<UserInterface>({
   vehicle: {
     type: String,
     required: true,
-    enum: ["car", "motorcycle", "none"],
-    default: "none",
+    enum: ["car", "motorcycle"],
+    default: "motorcycle",
   },
 });
 

@@ -7,7 +7,7 @@ import {
   getPendingCouriers,
   getAcceptedCouriers,
   getActiveCouriers,
-  deleteUserById,
+  deleteUser,
 } from "../controllers/users";
 
 const router = express.Router();
@@ -21,6 +21,6 @@ router.get("/couriers/active", getActiveCouriers);
 router.post("/create", createUser);
 router.get("/:userId", getUser);
 router.put("/update/:userId", updateUser);
-router.delete("/delete/:userId", deleteUserById);
+router.delete("/delete/:userId", deleteUser);
 
 export default router;

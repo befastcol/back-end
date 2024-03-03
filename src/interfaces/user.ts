@@ -5,7 +5,7 @@ export interface UserInterface extends Document {
   name: string;
   phone: string;
   isDisabled: boolean;
-  originLocation?: PointInterface;
+  originLocation: PointInterface;
   currentLocation?: PointInterface;
   documents: {
     INE: DocumentInterface;
@@ -13,5 +13,5 @@ export interface UserInterface extends Document {
   };
   role: "user" | "courier" | "admin";
   status: "active" | "inactive" | "busy";
-  vehicle: "car" | "motorcycle" | "none";
+  vehicle: "car" | "motorcycle";
 }

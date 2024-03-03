@@ -6,6 +6,7 @@ export const pointSchema = new Schema<PointInterface>({
   coordinates: { type: [Number], default: [] },
   title: { type: String },
   subtitle: { type: String },
+  city: { type: String },
 });
 
 pointSchema.index({ coordinates: "2dsphere" });

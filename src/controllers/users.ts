@@ -45,7 +45,7 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteUserById = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response) => {
   try {
     const user = await User.findByIdAndDelete(req.params.userId);
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -140,6 +140,7 @@ export const updateCourierLocation = async (data: {
   courierId: string;
   latitude: number;
   longitude: number;
+  city: string;
 }) => {
   try {
     const courier = await User.findById(data.courierId);
@@ -148,6 +149,7 @@ export const updateCourierLocation = async (data: {
     courier.currentLocation = {
       type: "Point",
       coordinates: [data.longitude, data.latitude],
+      city: data.city,
     };
     await courier.save();
     console.log(`Location updated for courier ${data.courierId}`);
