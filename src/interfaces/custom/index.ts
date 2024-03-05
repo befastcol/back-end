@@ -6,7 +6,7 @@ export interface DocumentInterface {
 export interface PointInterface {
   type: string;
   coordinates: [number, number];
-  city: string;
+  city?: string;
   title?: string;
   subtitle?: string;
 }

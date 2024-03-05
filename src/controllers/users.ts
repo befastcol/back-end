@@ -139,7 +139,6 @@ export const updateCourierLocation = async (data: {
   courierId: string;
   latitude: number;
   longitude: number;
-  city: string;
 }) => {
   try {
     const courier = await User.findById(data.courierId);
@@ -148,7 +147,6 @@ export const updateCourierLocation = async (data: {
     courier.currentLocation = {
       type: "Point",
       coordinates: [data.longitude, data.latitude],
-      city: data.city,
     };
     await courier.save();
     console.log(`Location updated for courier ${data.courierId}`);
