@@ -47,7 +47,7 @@ const userSchema = new Schema<UserInterface>({
   status: {
     type: String,
     required: true,
-    enum: ["active", "inactive", "busy"],
+    enum: ["available", "inactive", "busy"],
     default: "inactive",
   },
   vehicle: {

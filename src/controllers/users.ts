@@ -110,7 +110,6 @@ export const getPendingCouriers = async (_: Request, res: Response) => {
   try {
     const couriers = await User.find({
       role: "user",
-      // Asegúrate de que cada campo no sea igual a una cadena vacía
       "INE.front": { $ne: "" },
       "INE.back": { $ne: "" },
       "driverLicense.front": { $ne: "" },
@@ -121,14 +120,14 @@ export const getPendingCouriers = async (_: Request, res: Response) => {
   }
 };
 
-export const getActiveCouriers = async (_: Request, res: Response) => {
+export const getAvailableCouriers = async (_: Request, res: Response) => {
   try {
-    const activeCouriers = await User.find({
+    const couriers = await User.find({
       role: "courier",
-      status: "active",
+      status: "available",
     });
 
-    res.status(200).json(activeCouriers);
+    res.status(200).json(couriers);
   } catch (error: any) {
     res
       .status(500)
@@ -155,5 +154,21 @@ export const updateCourierLocation = async (data: {
     console.log(`Location updated for courier ${data.courierId}`);
   } catch (error: any) {
     console.error("Error updating courier location:", error.message);
+  }
+};
+
+export const getAvailableCouriersByCity = async (
+  city: String
+): Promise<UserInterface[]> => {
+  try {
+    const couriers: UserInterface[] = await User.find({
+      role: "courier",
+      status: "available",
+      "originLocation.city": city,
+    });
+
+    return couriers;
+  } catch (e) {
+    return [];
   }
 };

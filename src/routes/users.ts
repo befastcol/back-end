@@ -6,7 +6,7 @@ import {
   getUser,
   getPendingCouriers,
   getAcceptedCouriers,
-  getActiveCouriers,
+  getAvailableCouriers,
   deleteUser,
 } from "../controllers/users";
 
@@ -16,7 +16,7 @@ const router = express.Router();
 router.get("/all", getAllUsers);
 router.get("/couriers/pending", getPendingCouriers);
 router.get("/couriers/accepted", getAcceptedCouriers);
-router.get("/couriers/active", getActiveCouriers);
+router.get("/couriers/available", getAvailableCouriers);
 
 router.post("/create", createUser);
 router.get("/:userId", getUser);

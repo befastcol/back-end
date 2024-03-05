@@ -1,29 +1,39 @@
-// import { User } from "../../models/user";
+import { io } from "../../..";
+import { DeliveryInterface } from "../../interfaces/delivery";
+import { UserInterface } from "../../interfaces/user";
+import { Delivery } from "../../models/delivery";
 
-// export const startDeliveryAssignment = async (delivery: any) => {
-//   const nearbyCouriers = await getNearbyCouriers(delivery.origin.coordinates);
+export const notifyCourier = async (
+  couriers: UserInterface[],
+  deliveryInfo: DeliveryInterface,
+  index = 0
+) => {
+  if (index >= couriers.length) {
+    console.log(
+      "Todos los couriers han sido notificados y ninguno ha aceptado la entrega."
+    );
+    return;
+  }
 
-//   // 2. Inicia el proceso de notificación y asignación temporal
-//   // notifyCouriersSequentially(nearbyCouriers, delivery._id);
-// };
+  const courierId = couriers[index].id;
+  io.emit(courierId, deliveryInfo);
 
-// const getNearbyCouriers = async (originCoordinates) => {
-//   // Esta función es un esquema. Deberás ajustarla según tu base de datos y esquema de datos.
-//   const MAX_DISTANCE = 5000; // Max distancia en metros para considerar 'cercano'
-
-//   // Suponiendo que usas MongoDB con un índice geoespacial en el campo 'location'
-//   const nearbyCouriers = await User.find({
-//     'location': {
-//       $near: {
-//         $geometry: {
-//            type: "Point",
-//            coordinates: originCoordinates // [longitud, latitud]
-//         },
-//         $maxDistance: MAX_DISTANCE,
-//       }
-//     },
-//     'available': true // Asumiendo que hay un campo que indica si el repartidor está disponible
-//   });
-
-//   return nearbyCouriers;
-// };
+  // Establece un temporizador para esperar la respuesta del courier
+  setTimeout(async () => {
+    // Verificar si la entrega ha sido aceptada por el courier actual
+    const delivery = await Delivery.findById(deliveryInfo.id);
+    if (
+      delivery &&
+      delivery.courier.toString() === courierId.toString() &&
+      delivery.status === "in_progress"
+    ) {
+      console.log(`El courier ${courierId} ha aceptado la entrega.`);
+    } else {
+      console.log(
+        `El courier ${courierId} no respondió. Notificando al siguiente courier.`
+      );
+      // Notifica al siguiente courier
+      notifyCourier(couriers, deliveryInfo, index + 1);
+    }
+  }, 10000); // Espera 10 segundos para la respuesta
+};
