@@ -20,6 +20,14 @@ export const getDeliveryPrice = async (req: Request, res: Response) => {
   }
 };
 
+export const getDeliveryCost = async (_: Request, res: Response) => {
+  try {
+    res.status(200).json(8);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export const createDelivery = async (req: Request, res: Response) => {
   const availableCouriers = await getAvailableCouriersByCity(
     req.body.origin.city

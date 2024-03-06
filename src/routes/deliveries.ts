@@ -6,6 +6,7 @@ import {
   deleteDelivery,
   getDelivery,
   getDeliveryPrice,
+  getDeliveryCost,
   updateDelivery,
 } from "../controllers/deliveries";
 
@@ -17,6 +18,7 @@ router.delete("/delete/:deliveryId", deleteDelivery);
 router.put("/update/:deliveryId", updateDelivery);
 
 router.get("/price", getDeliveryPrice);
+router.get("/cost", getDeliveryCost);
 
 // User deliveries history
 router.get("/users/:userId", getUserDeliveries);
