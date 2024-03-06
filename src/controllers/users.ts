@@ -125,6 +125,7 @@ export const getAvailableCouriers = async (_: Request, res: Response) => {
     const couriers = await User.find({
       role: "courier",
       status: "available",
+      isDisabled: false,
     });
 
     res.status(200).json(couriers);
@@ -149,7 +150,6 @@ export const updateCourierLocation = async (data: {
       coordinates: [data.longitude, data.latitude],
     };
     await courier.save();
-    console.log(`Location updated for courier ${data.courierId}`);
   } catch (error: any) {
     console.error("Error updating courier location:", error.message);
   }
@@ -162,6 +162,7 @@ export const getAvailableCouriersByCity = async (
     const couriers: UserInterface[] = await User.find({
       role: "courier",
       status: "available",
+      isDisabled: false,
       "originLocation.city": city,
     });
 
