@@ -24,7 +24,8 @@ export const notifyCourier = async (
     const delivery = await Delivery.findById(deliveryInfo.id);
     if (
       delivery &&
-      delivery.courier.toString() === courierId.toString() &&
+      delivery.courier &&
+      delivery.courier?.toString() === courierId?.toString() &&
       delivery.status === "in_progress"
     ) {
       console.log(`El courier ${courierId} ha aceptado la entrega.`);
