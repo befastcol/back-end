@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
 
       await acceptDelivery(delivery);
       socket.join(delivery.id);
-      socket.to(delivery.id).emit("serviceAccepted", delivery);
+      socket.to(delivery.deliveryId).emit("serviceAccepted", delivery);
     } catch (e) {
       console.log(e);
     }
