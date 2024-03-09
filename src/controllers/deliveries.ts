@@ -40,7 +40,9 @@ export const createDelivery = async (req: Request, res: Response) => {
 
   console.log({ availableCouriers, closestCouriers });
 
-  if (closestCouriers.length == 0) return;
+  if (closestCouriers.length == 0) {
+    return res.status(200).json({ message: "No couriers available" });
+  }
 
   try {
     const delivery = new Delivery({
