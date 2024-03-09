@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { UserInterface } from "../interfaces/user";
 import { User } from "../models/user";
+import { Types } from "mongoose";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -155,13 +156,15 @@ export const updateCourierLocation = async (data: {
   }
 };
 
-export const getAvailableCouriersByCity = async (
-  city: String
+export const getAvailableCouriersByVehicleAndCity = async (
+  city: String,
+  vehicle: String
 ): Promise<UserInterface[]> => {
   try {
     const couriers: UserInterface[] = await User.find({
       role: "courier",
       status: "available",
+      vehicle: vehicle,
       isDisabled: false,
       "originLocation.city": city,
     });
@@ -169,5 +172,20 @@ export const getAvailableCouriersByCity = async (
     return couriers;
   } catch (e) {
     return [];
+  }
+};
+
+export const updateUserStatus = async (data: {
+  courierId: Types.ObjectId;
+  status: "busy" | "inactive" | "available";
+}) => {
+  try {
+    const courier = await User.findById(data.courierId);
+    if (!courier) return;
+
+    courier.status = data.status;
+    await courier.save();
+  } catch (error: any) {
+    console.error("Error updating courier:", error.message);
   }
 };

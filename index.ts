@@ -6,7 +6,10 @@ import { Server as SocketIOServer } from "socket.io";
 
 import deliveryRoutes from "./src/routes/deliveries";
 import userRoutes from "./src/routes/users";
-import { updateCourierLocation } from "./src/controllers/users";
+import {
+  updateCourierLocation,
+  updateUserStatus,
+} from "./src/controllers/users";
 import { acceptDelivery } from "./src/controllers/deliveries";
 
 dotenv.config();
@@ -44,6 +47,8 @@ io.on("connection", (socket) => {
       console.log({ courierId, status, deliveryId });
 
       await acceptDelivery({ courierId, status, deliveryId });
+      await updateUserStatus({ courierId, status: "busy" });
+
       socket.join(deliveryId);
       socket.to(deliveryId).emit("serviceAccepted", { status, courierId });
     } catch (e) {

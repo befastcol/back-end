@@ -3,7 +3,7 @@ import { Delivery } from "../models/delivery";
 import { calculatePrice } from "./helpers/price";
 import { getClosestCouriers } from "./helpers/closestCouriers";
 import { notifyCourier } from "./helpers/socketio";
-import { getAvailableCouriersByCity } from "./users";
+import { getAvailableCouriersByVehicleAndCity } from "./users";
 import { Types } from "mongoose";
 
 export const getDeliveryPrice = async (req: Request, res: Response) => {
@@ -29,8 +29,9 @@ export const getDeliveryCost = async (_: Request, res: Response) => {
 };
 
 export const createDelivery = async (req: Request, res: Response) => {
-  const availableCouriers = await getAvailableCouriersByCity(
-    req.body.origin.city
+  const availableCouriers = await getAvailableCouriersByVehicleAndCity(
+    req.body.origin.city,
+    req.body.vehicle
   );
   const closestCouriers = await getClosestCouriers(
     req.body.origin,
