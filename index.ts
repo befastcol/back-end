@@ -34,12 +34,15 @@ io.on("connection", (socket) => {
 
   //When users create a delivery they join a room with the deliveryId
   socket.on("joinDeliveryRoom", ({ deliveryId }) => {
+    console.log({ deliveryId });
     socket.join(deliveryId);
   });
 
   //When couriers accept a service they join the same room and emmit a message
   socket.on("serviceAccepted", async (delivery) => {
     try {
+      console.log({ delivery });
+
       await acceptDelivery(delivery);
       socket.join(delivery.id);
       socket.to(delivery.id).emit("serviceAccepted", delivery);
