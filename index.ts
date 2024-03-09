@@ -39,13 +39,13 @@ io.on("connection", (socket) => {
   });
 
   //When couriers accept a service they join the same room and emmit a message
-  socket.on("serviceAccepted", async (delivery) => {
+  socket.on("serviceAccepted", async ({ courierId, status, deliveryId }) => {
     try {
-      console.log({ delivery });
+      console.log({ courierId, status, deliveryId });
 
-      await acceptDelivery(delivery);
-      socket.join(delivery.id);
-      socket.to(delivery.deliveryId).emit("serviceAccepted", delivery);
+      await acceptDelivery({ courierId, status, deliveryId });
+      socket.join(deliveryId);
+      socket.to(deliveryId).emit("serviceAccepted", { status, courierId });
     } catch (e) {
       console.log(e);
     }
