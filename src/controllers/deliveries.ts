@@ -40,6 +40,8 @@ export const createDelivery = async (req: Request, res: Response) => {
 
   console.log({ availableCouriers, closestCouriers });
 
+  if (closestCouriers.length == 0) return;
+
   try {
     const delivery = new Delivery({
       origin: req.body.origin,
