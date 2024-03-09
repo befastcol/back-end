@@ -7,6 +7,7 @@ import { Server as SocketIOServer } from "socket.io";
 import deliveryRoutes from "./src/routes/deliveries";
 import userRoutes from "./src/routes/users";
 import { updateCourierLocation } from "./src/controllers/users";
+import { acceptDelivery } from "./src/controllers/deliveries";
 
 dotenv.config();
 
@@ -27,15 +28,24 @@ const server = http.createServer(app);
 const io = new SocketIOServer(server);
 
 io.on("connection", (socket) => {
-  console.log("Courier connected, id: ", socket.id);
-
   socket.on("updateLocation", (data) => {
-    console.log("New location received:", data);
     updateCourierLocation(data);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Courier disconnected");
+  //When users create a delivery they join a room with the deliveryId
+  socket.on("joinDeliveryRoom", ({ deliveryId }) => {
+    socket.join(deliveryId);
+  });
+
+  //When couriers accept a service they join the same room and emmit a message
+  socket.on("serviceAccepted", async (delivery) => {
+    try {
+      await acceptDelivery(delivery);
+      socket.join(delivery.id);
+      socket.to(delivery.id).emit("serviceAccepted", delivery);
+    } catch (e) {
+      console.log(e);
+    }
   });
 });
 

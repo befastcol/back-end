@@ -16,11 +16,10 @@ export const notifyCourier = async (
   }
 
   const courierId = couriers[index].id;
+  //TODO: Despues se tienen que usar salas para mejorar el rendimiento
   io.emit(courierId, deliveryInfo);
 
-  // Establece un temporizador para esperar la respuesta del courier
   setTimeout(async () => {
-    // Verificar si la entrega ha sido aceptada por el courier actual
     const delivery = await Delivery.findById(deliveryInfo.id);
     if (
       delivery &&
@@ -33,8 +32,8 @@ export const notifyCourier = async (
       console.log(
         `El courier ${courierId} no respondió. Notificando al siguiente courier.`
       );
-      // Notifica al siguiente courier
+
       notifyCourier(couriers, deliveryInfo, index + 1);
     }
-  }, 10000); // Espera 10 segundos para la respuesta
+  }, 10000);
 };
