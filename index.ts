@@ -33,6 +33,11 @@ const io = new SocketIOServer(server);
 io.on("connection", (socket) => {
   socket.on("updateLocation", (data) => {
     updateCourierLocation(data);
+    console.log(data);
+
+    if (data.deliveryId) {
+      socket.to(data.deliveryId).emit("locationChanged", data);
+    }
   });
 
   //When users create a delivery they join a room with the deliveryId
