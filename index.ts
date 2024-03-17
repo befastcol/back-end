@@ -50,24 +50,24 @@ io.on("connection", (socket) => {
   });
 
   //When couriers accept a service they join the same room and emmit a message
-  socket.on("serviceAccepted", async ({ courierId, status, deliveryId }) => {
+  socket.on("serviceAccepted", async ({ courierId, deliveryId }) => {
     try {
-      await acceptDelivery({ courierId, status, deliveryId });
-      await updateCourierStatus({ courierId, status: "busy" });
+      await acceptDelivery({ status: "in_progress", courierId, deliveryId });
+      await updateCourierStatus({ status: "busy", courierId });
 
       socket.join(deliveryId);
-      socket.to(deliveryId).emit("serviceAccepted", { status, courierId });
+      socket.to(deliveryId).emit("serviceAccepted", { courierId });
     } catch (e) {
       console.log(e);
     }
   });
 
-  socket.on("serviceFinished", async ({ courierId, status, deliveryId }) => {
+  socket.on("serviceFinished", async ({ courierId, deliveryId }) => {
     try {
-      await endDelivery({ status, deliveryId });
-      await updateCourierStatus({ courierId, status: "available" });
+      await endDelivery({ status: "completed", deliveryId });
+      await updateCourierStatus({ status: "available", courierId });
 
-      socket.to(deliveryId).emit("serviceFinished", { status, courierId });
+      socket.to(deliveryId).emit("serviceFinished", { courierId });
       socket.leave(deliveryId);
     } catch (e) {
       console.log(e);
