@@ -175,7 +175,7 @@ export const getAvailableCouriersByVehicleAndCity = async (
   }
 };
 
-export const updateUserStatus = async (data: {
+export const updateCourierStatus = async (data: {
   courierId: Types.ObjectId;
   status: "busy" | "inactive" | "available";
 }) => {

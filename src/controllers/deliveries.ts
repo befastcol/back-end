@@ -148,3 +148,19 @@ export const acceptDelivery = async (data: {
     console.error("Error updating delivery:", error.message);
   }
 };
+
+export const endDelivery = async (data: {
+  status: "pending" | "in_progress" | "completed";
+  deliveryId: Types.ObjectId;
+}) => {
+  try {
+    const delivery = await Delivery.findById(data.deliveryId);
+    if (!delivery) return;
+
+    delivery.status = data.status;
+
+    await delivery.save();
+  } catch (error: any) {
+    console.error("Error updating delivery:", error.message);
+  }
+};
