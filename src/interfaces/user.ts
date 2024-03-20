@@ -11,6 +11,7 @@ export interface UserInterface extends Document {
     INE: DocumentInterface;
     driverLicense: DocumentInterface;
   };
+  credits: number;
   role: "user" | "courier" | "admin";
   status: "available" | "inactive" | "busy";
   vehicle: "car" | "motorcycle";

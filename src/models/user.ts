@@ -56,6 +56,11 @@ const userSchema = new Schema<UserInterface>({
     enum: ["car", "motorcycle"],
     default: "motorcycle",
   },
+  credits: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 export const User = mongoose.model<UserInterface>("User", userSchema);
