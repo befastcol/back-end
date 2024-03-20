@@ -16,9 +16,11 @@ export const notifyCourier = async (
   }
 
   const courierId = couriers[index].id;
-  //TODO: Despues se tienen que usar salas para mejorar el rendimiento
-  io.to(courierId).emit("deliveryFound", deliveryInfo);
 
+  io.to(courierId).emit("deliveryFound", {
+    deliveryInfo,
+    deadline: new Date(Date.now() + 10000),
+  });
   setTimeout(async () => {
     const delivery = await Delivery.findById(deliveryInfo.id);
     if (
