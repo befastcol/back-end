@@ -1,4 +1,4 @@
-import geolib from "geolib";
+const geolib = require("geolib");
 import { PointInterface } from "../../interfaces/custom";
 import { UserInterface } from "../../interfaces/user";
 

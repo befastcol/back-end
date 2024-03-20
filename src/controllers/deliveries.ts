@@ -34,7 +34,6 @@ export const createDelivery = async (req: Request, res: Response) => {
     req.body.vehicle
   );
 
-  console.log({ availableCouriers });
   const closestCouriers = await getClosestCouriers(
     req.body.origin,
     availableCouriers
