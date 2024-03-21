@@ -113,7 +113,9 @@ export const updateDelivery = async (req: Request, res: Response) => {
 export const getCourierDeliveries = async (req: Request, res: Response) => {
   try {
     const courierId = req.params.courierId;
-    const courierServices = await Delivery.find({ courier: courierId });
+    const courierServices = await Delivery.find({ courier: courierId }).sort({
+      requestedDate: -1,
+    });
     res.status(200).json(courierServices);
   } catch (_) {
     res.status(500).json({ message: "Internal server error" });
