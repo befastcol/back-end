@@ -112,10 +112,18 @@ export const updateDelivery = async (req: Request, res: Response) => {
 
 export const getCourierDeliveries = async (req: Request, res: Response) => {
   try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 25;
+    const skip = (page - 1) * limit;
+
     const courierId = req.params.courierId;
-    const courierServices = await Delivery.find({ courier: courierId }).sort({
-      requestedDate: -1,
-    });
+    const courierServices = await Delivery.find({ courier: courierId })
+      .sort({
+        requestedDate: -1,
+      })
+      .skip(skip)
+      .limit(limit);
+
     res.status(200).json(courierServices);
   } catch (_) {
     res.status(500).json({ message: "Internal server error" });
