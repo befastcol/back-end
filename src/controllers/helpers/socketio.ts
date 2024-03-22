@@ -39,3 +39,9 @@ export const notifyCourier = async (
     }
   }, 10000);
 };
+
+export const notifyCourierDeliveryHasBeenCanceled = async (
+  deliveryId: string
+) => {
+  io.to(deliveryId).emit("deliveryCanceled");
+};

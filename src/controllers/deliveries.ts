@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import { Delivery } from "../models/delivery";
 import { calculatePrice } from "./helpers/price";
 import { getClosestCouriers } from "./helpers/closestCouriers";
-import { notifyCourier } from "./helpers/socketio";
+import {
+  notifyCourier,
+  notifyCourierDeliveryHasBeenCanceled,
+} from "./helpers/socketio";
 import { getAvailableCouriersByVehicleAndCity } from "./users";
 import { Types } from "mongoose";
 
@@ -66,7 +69,7 @@ export const deleteDelivery = async (req: Request, res: Response) => {
   try {
     const delivery = await Delivery.findByIdAndDelete(req.params.deliveryId);
     if (!delivery) return res.status(404).json({ message: "Not found" });
-
+    notifyCourierDeliveryHasBeenCanceled(req.params.deliveryId);
     res.status(200).json({ message: "Delivery deleted successfully" });
   } catch (_) {
     res.status(500).json({ message: "Internal server error" });
