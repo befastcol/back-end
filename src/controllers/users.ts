@@ -167,10 +167,12 @@ export const getAvailableCouriersByVehicleAndCity = async (
       vehicle: vehicle,
       isDisabled: false,
       "originLocation.city": city,
+      credits: { $gt: 0 },
     });
 
     return couriers;
   } catch (e) {
+    console.error(e);
     return [];
   }
 };
@@ -209,5 +211,21 @@ export const updateUserCredits = async (req: Request, res: Response) => {
     res.status(200).json(updatedCourier);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const removeCreditFromCourier = async ({
+  courierId,
+}: {
+  courierId: Types.ObjectId;
+}) => {
+  try {
+    const courier = await User.findOneAndUpdate(
+      { _id: courierId, credits: { $gt: 0 } },
+      { $inc: { credits: -1 } },
+      { new: true }
+    );
+  } catch (error: any) {
+    console.error("Error updating courier:", error.message);
   }
 };

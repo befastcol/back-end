@@ -9,6 +9,7 @@ import userRoutes from "./src/routes/users";
 import {
   updateCourierLocation,
   updateCourierStatus,
+  removeCreditFromCourier,
 } from "./src/controllers/users";
 import { acceptDelivery, endDelivery } from "./src/controllers/deliveries";
 
@@ -66,6 +67,7 @@ io.on("connection", (socket) => {
     try {
       await endDelivery({ status: "completed", deliveryId });
       await updateCourierStatus({ status: "available", courierId });
+      await removeCreditFromCourier({ courierId });
 
       socket.to(deliveryId).emit("serviceFinished", { courierId });
       socket.leave(deliveryId);
