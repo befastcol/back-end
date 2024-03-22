@@ -76,8 +76,10 @@ export const deleteDelivery = async (req: Request, res: Response) => {
 export const getDelivery = async (req: Request, res: Response) => {
   try {
     const deliveryId = req.params.deliveryId;
-    const courierServices = await Delivery.findById(deliveryId);
-    res.status(200).json(courierServices);
+    const delivery = await Delivery.findById(deliveryId);
+    if (!delivery) return res.status(404);
+
+    res.status(200).json(delivery);
   } catch (_) {
     res.status(500).json({ message: "Internal server error" });
   }
