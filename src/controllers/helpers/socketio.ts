@@ -9,9 +9,7 @@ export const notifyCourier = async (
   index = 0
 ) => {
   if (index >= couriers.length) {
-    console.log(
-      "Todos los couriers han sido notificados y ninguno ha aceptado la entrega."
-    );
+    io.to(deliveryInfo.id).emit("deliveryNotAccepted");
     return;
   }
 
