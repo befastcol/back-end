@@ -11,12 +11,12 @@ import { Types } from "mongoose";
 
 export const getDeliveryPrice = async (req: Request, res: Response) => {
   try {
-    const { distance, duration } = req.query;
+    const { distance } = req.query;
 
-    if (!distance && !duration)
+    if (!distance)
       return res.status(400).json({ message: "Invalid query parameters" });
 
-    const price = calculatePrice(Number(distance), Number(duration));
+    const price = calculatePrice(Number(distance));
     res.status(200).json(price);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
