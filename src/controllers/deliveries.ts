@@ -77,7 +77,8 @@ export const getDelivery = async (req: Request, res: Response) => {
   try {
     const deliveryId = req.params.deliveryId;
     const delivery = await Delivery.findById(deliveryId);
-    if (!delivery) return res.status(404);
+
+    if (!delivery) return res.status(404).json({ message: "Not found" });
 
     res.status(200).json(delivery);
   } catch (_) {
