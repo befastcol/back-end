@@ -8,6 +8,7 @@ import {
   getAcceptedCouriers,
   getAvailableCouriers,
   deleteUser,
+  updateUserCredits,
 } from "../controllers/users";
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.get("/couriers/available", getAvailableCouriers);
 router.post("/create", createUser);
 router.get("/:userId", getUser);
 router.put("/update/:userId", updateUser);
+router.patch("/credits/:userId", updateUserCredits);
 router.delete("/delete/:userId", deleteUser);
 
 export default router;

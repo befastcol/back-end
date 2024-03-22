@@ -189,3 +189,25 @@ export const updateCourierStatus = async (data: {
     console.error("Error updating courier:", error.message);
   }
 };
+
+export const updateUserCredits = async (req: Request, res: Response) => {
+  try {
+    const { credits } = req.body;
+    const { userId } = req.params;
+
+    const courier = await User.findById(userId);
+    if (!courier) return res.status(404).json({ message: "User not found" });
+
+    const updatedCredits = (courier.credits || 0) + credits;
+
+    const updatedCourier = await User.findByIdAndUpdate(
+      userId,
+      { credits: updatedCredits },
+      { new: true }
+    );
+
+    res.status(200).json(updatedCourier);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
