@@ -2,6 +2,7 @@ import { io } from "../../..";
 import { DeliveryInterface } from "../../interfaces/delivery";
 import { UserInterface } from "../../interfaces/user";
 import { Delivery } from "../../models/delivery";
+import { deleteDeliveryById } from "../deliveries";
 
 export const notifyCourier = async (
   couriers: UserInterface[],
@@ -10,6 +11,7 @@ export const notifyCourier = async (
 ) => {
   if (index >= couriers.length) {
     io.to(deliveryInfo.id).emit("deliveryNotAccepted");
+    await deleteDeliveryById(deliveryInfo.id);
     return;
   }
 

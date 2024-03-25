@@ -174,3 +174,11 @@ export const endDelivery = async (data: {
     console.error("Error updating delivery:", error.message);
   }
 };
+
+export const deleteDeliveryById = async (deliveryId: string) => {
+  try {
+    await Delivery.findByIdAndDelete(deliveryId);
+  } catch (_) {
+    console.error({ message: "Internal server error" });
+  }
+};
