@@ -164,6 +164,8 @@ export const getAvailableCouriersByVehicleAndCity = async (
   try {
     const normalizedCity = normalizeCityName(city);
 
+    console.log({ city, normalizedCity });
+
     const couriers: UserInterface[] = await User.find({
       role: "courier",
       status: "available",
