@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { UserInterface } from "../interfaces/user";
 import { User } from "../models/user";
 import { Types } from "mongoose";
+import { normalizeCityName } from "./helpers/normalize";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -161,12 +162,14 @@ export const getAvailableCouriersByVehicleAndCity = async (
   vehicle: String
 ): Promise<UserInterface[]> => {
   try {
+    const normalizedCity = normalizeCityName(city);
+
     const couriers: UserInterface[] = await User.find({
       role: "courier",
       status: "available",
       vehicle: vehicle,
       isDisabled: false,
-      "originLocation.city": city,
+      "originLocation.city": normalizedCity,
       credits: { $gt: 0 },
     });
 
