@@ -192,14 +192,12 @@ export const getAvailableCouriersByVehicleAndCity = async (
   try {
     const normalizedCity = normalizeCityName(city);
 
-    const cityRegex = new RegExp(`(${normalizedCity}|${city})`, "i");
-
     const couriers: UserInterface[] = await User.find({
       role: "courier",
       status: "available",
       vehicle: vehicle,
       isDisabled: false,
-      "originLocation.city": cityRegex,
+      "originLocation.city": normalizedCity,
       credits: { $gt: 0 },
     });
 
