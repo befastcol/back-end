@@ -158,8 +158,8 @@ export const updateCourierLocation = async (data: {
 };
 
 export const getAvailableCouriersByVehicleAndCity = async (
-  city: String,
-  vehicle: String
+  city: string,
+  vehicle: string
 ): Promise<UserInterface[]> => {
   try {
     const normalizedCity = normalizeCityName(city);

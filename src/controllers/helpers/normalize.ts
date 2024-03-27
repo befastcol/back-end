@@ -1,4 +1,4 @@
-export const normalizeCityName = (cityName: String) => {
+export const normalizeCityName = (cityName: string) => {
   return cityName
     .toLowerCase()
     .replace(/^ciudad de\s+/, "")
