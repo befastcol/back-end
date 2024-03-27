@@ -1,7 +1,12 @@
 export const normalizeCityName = (cityName: string) => {
-  return cityName
-    .toLowerCase()
-    .replace(/^ciudad de\s+/, "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+  // Paso 1: Convertir a minúsculas
+  let normalized = cityName.toLowerCase();
+
+  // Paso 2: Eliminar prefijos comunes como "ciudad de"
+  normalized = normalized.replace(/^ciudad de\s+/, "");
+
+  // Paso 3: Eliminar acentos y caracteres especiales
+  normalized = normalized.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  return normalized;
 };

@@ -162,7 +162,8 @@ export const getAvailableCouriersByVehicleAndCity = async (
   vehicle: string
 ): Promise<UserInterface[]> => {
   try {
-    const cityRegex = new RegExp(normalizeCityName(city), "i");
+    const normalizedCity = normalizeCityName(city);
+    const cityRegex = new RegExp(normalizedCity, "i");
 
     console.log({ city, cityRegex });
 
