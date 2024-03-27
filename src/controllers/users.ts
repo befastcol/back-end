@@ -34,15 +34,43 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    const body: UserInterface = req.body;
     const { userId } = req.params;
+    const updateData = req.body;
 
-    const user = await User.findByIdAndUpdate(userId, body, { new: true });
+    // Si updateData contiene originLocation y originLocation tiene un campo city
+    if (updateData.originLocation && updateData.originLocation.city) {
+      // Normaliza la ciudad antes de la actualización
+      const normalizedCity = normalizeCityName(updateData.originLocation.city);
 
-    if (!user) return res.status(404).json({ message: "User not found" });
+      // Preparar solo los datos necesarios para la actualización
+      const updateFields = {
+        ...updateData,
+        originLocation: {
+          ...updateData.originLocation,
+          city: normalizedCity,
+        },
+      };
 
-    res.status(200).json(user);
+      // Actualiza el usuario con los campos preparados
+      const user = await User.findByIdAndUpdate(userId, updateFields, {
+        new: true,
+      });
+
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      res.status(200).json(user);
+    } else {
+      // Si no hay originLocation.city, procede con la actualización normal
+      const user = await User.findByIdAndUpdate(userId, updateData, {
+        new: true,
+      });
+
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      res.status(200).json(user);
+    }
   } catch (error: any) {
+    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
